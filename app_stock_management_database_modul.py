@@ -14,14 +14,16 @@ class Database:
                            (id INTEGER PRIMARY KEY AUTOINCREMENT,
                             nama_barang TEXT NOT NULL,
                             jumlah_stok INTEGER NOT NULL,
-                            harga_beli INTEGER NOT NULL)''')
+                            harga_beli INTEGER NOT NULL,
+                            harga_jual INTEGER,
+                            supplier TEXT)''')
         # Menyimpan perubahan ke dalam database
         self.conn.commit()
 
-    def add_item(self, nama_barang, jumlah_stok, harga_beli):
+    def add_item(self, nama_barang, jumlah_stok, harga_beli, harga_jual=None, supplier=None):
         # Mengeksekusi perintah SQL untuk menambahkan item baru ke dalam tabel
-        self.cursor.execute('INSERT INTO data_barang (nama_barang, jumlah_stok, harga_beli) VALUES (?, ?, ?)',
-                            (nama_barang, jumlah_stok, harga_beli))
+        self.cursor.execute('INSERT INTO data_barang (nama_barang, jumlah_stok, harga_beli, harga_jual, supplier) VALUES (?, ?, ?, ?, ?)',
+                            (nama_barang, jumlah_stok, harga_beli, harga_jual, supplier))
         # Menyimpan perubahan ke dalam database
         self.conn.commit()
 
@@ -38,8 +40,23 @@ class Database:
         # Menyimpan perubahan ke dalam database
         self.conn.commit()
 
+    def update_item(self, item_id, edited_name, edited_quantity, edited_price, edited_sell_price=None, edited_supplier=None):
+        # Mengeksekusi perintah SQL untuk memperbarui item berdasarkan ID
+        self.cursor.execute('UPDATE data_barang SET nama_barang=?, jumlah_stok=?, harga_beli=?, harga_jual=?, supplier=? WHERE id=?',
+                            (edited_name, edited_quantity, edited_price, edited_sell_price, edited_supplier, item_id))
+        # Menyimpan perubahan ke dalam database
+        self.conn.commit()
+        
     def delete_item(self, item_id):
         # Mengeksekusi perintah SQL untuk menghapus item berdasarkan ID
         self.cursor.execute('DELETE FROM data_barang WHERE id=?', (item_id,))
+        # Menyimpan perubahan ke dalam database
+        self.conn.commit()
+        
+    def truncate_table(self):
+        # Mengeksekusi perintah SQL untuk menghapus semua data dari tabel
+        self.cursor.execute('DELETE FROM data_barang')
+        # Mereset nilai autoincrement pada kolom id
+        self.cursor.execute('DELETE FROM sqlite_sequence WHERE name="data_barang"')
         # Menyimpan perubahan ke dalam database
         self.conn.commit()

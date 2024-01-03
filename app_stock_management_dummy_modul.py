@@ -1,22 +1,33 @@
-from app_stock_management_database_modul import Database 
+from app_stock_management_database_modul import Database
 
-def insert_dummy_data():
-    # Membuat objek Database
-    db = Database()
+class Dummy:
+    def __init__(self):
+        # Membuat objek Database
+        self.db = Database()
 
-    # Menambahkan data dummy ke dalam tabel
-    dummy_data = [
-        ('Laptop', 5, 1200),
-        ('Printer', 10, 300),
-        ('Mouse', 20, 25),
-        ('Keyboard', 15, 50)
-    ]
-    db.cursor.executemany('INSERT INTO data_barang (nama_barang, jumlah_stok, harga_beli) VALUES (?, ?, ?)', dummy_data)
+    def insert_dummy_data(self):
+        # Menambahkan data dummy ke dalam tabel
+        dummy_data = [
+            ('Laptop', 5, 1200, 1500, 'TechMasters Inc.'),
+            ('Printer', 10, 300, 400, 'OfficeSolutions Ltd.'),
+            ('Mouse', 20, 25, 30, 'ElectroGadgets Co.'),
+            ('Keyboard', 15, 50, 60, 'Accessories Unlimited')
+        ]
 
-    # Menyimpan perubahan ke dalam database
-    db.conn.commit()
+        for data in dummy_data:
+            # Cek apakah data dengan nama barang yang sama sudah ada
+            existing_data = self.db.cursor.execute(
+                'SELECT * FROM data_barang WHERE nama_barang = ?', (data[0],)
+            ).fetchone()
 
-    print("Data dummy berhasil ditambahkan.")
+            if not existing_data:
+                # Data belum ada, lakukan penyisipan ke dalam tabel
+                self.db.cursor.execute(
+                    'INSERT INTO data_barang (nama_barang, jumlah_stok, harga_beli, harga_jual, supplier) VALUES (?, ?, ?, ?, ?)',
+                    data
+                )
 
-if __name__ == "__main__":
-    insert_dummy_data()
+        # Menyimpan perubahan ke dalam database
+        self.db.conn.commit()
+
+        print("Data dummy berhasil ditambahkan.")

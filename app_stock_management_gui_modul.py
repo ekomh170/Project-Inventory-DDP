@@ -188,7 +188,7 @@ class StockManagementGUI:
                 foreground='#FFFFFF').grid(row=2, column=0, pady=10)
 
         # Nama-nama anggota kelompok
-        anggota_kelompok = ["Ketua Kelompok : Eko Muchamad Haryono", "Nama Anggota : Najwa Nur Salimah", "Nama Anggota : Nurhayati", "Nama Anggota : Sayyid Fadil"]  # Ganti dengan nama anggota kelompok Anda
+        anggota_kelompok = ["Ketua Kelompok : Eko Muchamad Haryono", "Nama Anggota : Najwa Nur Salimah", "Nama Anggota : Nurhayati", "Nama Anggota : Muhammad Sayyid Fadil"]  # Ganti dengan nama anggota kelompok Anda
 
         # Menambahkan label untuk setiap anggota kelompok
         for index, anggota in enumerate(anggota_kelompok, start=3):

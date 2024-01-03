@@ -33,12 +33,12 @@ class Database:
         # Mengembalikan hasil eksekusi (semua item) sebagai daftar
         return self.cursor.fetchall()
 
-    def update_item(self, item_id, edited_name, edited_quantity, edited_price):
-        # Mengeksekusi perintah SQL untuk memperbarui item berdasarkan ID
-        self.cursor.execute('UPDATE data_barang SET nama_barang=?, jumlah_stok=?, harga_beli=? WHERE id=?',
-                            (edited_name, edited_quantity, edited_price, item_id))
-        # Menyimpan perubahan ke dalam database
-        self.conn.commit()
+    # def update_item(self, item_id, edited_name, edited_quantity, edited_price):
+    #     # Mengeksekusi perintah SQL untuk memperbarui item berdasarkan ID
+    #     self.cursor.execute('UPDATE data_barang SET nama_barang=?, jumlah_stok=?, harga_beli=? WHERE id=?',
+    #                         (edited_name, edited_quantity, edited_price, item_id))
+    #     # Menyimpan perubahan ke dalam database
+    #     self.conn.commit()
 
     def update_item(self, item_id, edited_name, edited_quantity, edited_price, edited_sell_price=None, edited_supplier=None):
         # Mengeksekusi perintah SQL untuk memperbarui item berdasarkan ID

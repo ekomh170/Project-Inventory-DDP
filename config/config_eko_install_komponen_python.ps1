@@ -3,7 +3,6 @@ pip install tk
 pip install pillow
 pip install ttkbootstrap
 pip install ttkthemes
+pip install reportlab
 
-# Menjalankan perintah untuk  membuat program menjadi file .exe
-pip install pyinstaller
 
